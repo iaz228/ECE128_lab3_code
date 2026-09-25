@@ -1,0 +1,53 @@
+`timescale 1ns / 1ps
+
+module tb_Top;
+
+    // Inputs
+    reg [3:0] A;
+    reg [3:0] B;
+    reg Cin;
+    reg S;
+
+    // Outputs
+    wire [6:0] seg;
+
+    // Instantiate the Unit Under Test (UUT)
+    Top uut (
+        .A(A),
+        .B(B),
+        .Cin(Cin),
+        .S(S),
+        .seg(seg)
+    );
+
+    initial begin
+        // Monitor signals in console
+        $monitor("Time=%0t | A=%d B=%d Cin=%b S=%b | Mux BCD Out=%d | Seg Display=%b", 
+                 $time, A, B, Cin, S, uut.bcd_mux_out, seg);
+
+        // Initialize Inputs
+        A = 0; B = 0; Cin = 0; S = 0;
+        #10;
+
+        // Test Case 1: 5 + 3 = 8
+        A = 4'd5; 
+        B = 4'd3; 
+        Cin = 1'b0; 
+        S = 1'b0; // Select RCA sum output (8)
+        #20;
+
+        // Test Case 2: 12 + 1 = 13 (4'd13 -> low 4 bits = 13, sum output = 13/4'd13)
+        A = 4'd2; 
+        B = 4'd1; 
+        Cin = 1'b0; 
+        S = 1'b0; // Select RCA sum output (13)
+        #20;
+
+        // Optional: Toggle S to select carry-out instead of sum for inspection
+        S = 1'b1; 
+        #20;
+
+        $finish;
+    end
+
+endmodule
