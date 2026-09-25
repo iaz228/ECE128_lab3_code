@@ -1,0 +1,12 @@
+This repository contain Verilog code for the design of a driver for a 7 segment display. This display shows the outputs of a 4 bit full adder and their carry based on the selector switch.
+Instructions:
+
+1.Create project in Vivaldo using correct FPGA selected
+2.Move display driver code into source file
+3.Assign inputs to switches and segments on FPGA usings provided file
+4.Add constraint to add test bench 
+5.Run Simulation to check wave form (Test bench should show corresponding value for seg of the additions)
+6.Run synthesis and check resulting gate level results
+7.Create bit stream
+8.Program FPGA
+9.Test FPGA with sample inputs of a=5 and b = 3. Should yield 8 on display
